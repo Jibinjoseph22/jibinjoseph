@@ -285,7 +285,8 @@ header nav ul li a:hover {
     }
 
     .text-content {
-        padding-right: 0; /* Remove padding on smaller screens */
+        padding: 0 10px; /* Adjust padding for smaller screens */
+        max-width: 90%; /* Make text content fit better */
         text-align: center; /* Center text */
     }
 
@@ -297,12 +298,29 @@ header nav ul li a:hover {
     }
 
     .profile-pic img {
-        width: 200px; /* Adjust width for smaller screens */
-        height: 200px; /* Adjust height for smaller screens */
+        width: 180px; /* Adjust width for smaller screens */
+        height: 180px; /* Adjust height for smaller screens */
     }
 }
+@media (max-width: 480px) {
+    .text-content h1 {
+        font-size: 1.5rem;
+        margin: 10px 0; /* Adjusted margin to balance spacing */
+        word-wrap: break-word; /* Ensures text wraps properly */
+        line-height: 1.2;
+    }
+    
+    
 
+    .text-content h2 {
+        font-size: .8rem; /* Adjust subtitle size for smaller screens */
+    }
 
+    .profile-pic img {
+        width: 150px; /* Further reduce size for very small screens */
+        height: 150px;
+    }
+}
 /* General Container Styling */
 .about, .services, .skills, .projects, .certifications, .contact {
     padding: 60px 0;
@@ -440,22 +458,27 @@ h2::after {
     margin: 0;
     color: #666;
 }
-.skill-progress-container {
-    position: relative; /* Ensures that the absolute positioning of child elements is relative to this container */
-    width: 100%; /* Full width of the parent container */
-    max-width: 600px; /* Restrict the maximum width if needed */
-    margin: 0 auto; /* Center the container if necessary */
-}
-.skill-progress {
-    position: absolute; /* Absolute positioning relative to the parent container */
-    bottom: 4px; /* Align at the bottom of the parent container */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust position to truly center */
-    width: 90%; /* Width of the progress bar */
+/*.skill-progress {
+    margin-top: 10px;
     height: 8px;
-    background: #a09e9e;
+    background: #5c5a5a;
     border-radius: 5px;
-    overflow: hidden; /* Ensures that the progress bar doesn’t overflow */
+    left: 50%;
+    overflow: hidden;
+    bottom: 4px; 
+    position: absolute;
+    transform: translateX(-50%);
+      }
+
+
+/*.skill-progress::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: calc(var(--percentage, 0) * 1%);
+    background: linear-gradient(to right, #ff6b6b, #fbc531);
+    border-radius: 5px;
+    transition: width 1s;
 }
 
 
@@ -673,11 +696,11 @@ h2::after {
     bottom: 0; /* Move image into view */
 }
 
-/* Media Queries for Responsive Design */
+/* Responsive Design */
 @media (max-width: 768px) {
     .certifications h2 {
-        font-size: 2rem;
-        margin-bottom: 20px;
+        font-size: 1.8rem;
+        margin-bottom: 40px;
     }
 
     .certifications-grid {
@@ -691,17 +714,22 @@ h2::after {
     }
 
     .certification-card h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+        margin-bottom: 6px;
     }
 
     .certification-card p {
         font-size: 0.9rem;
     }
+
+    .certificate-image {
+        bottom: -100%; /* Slightly off-screen for hover effect */
+    }
 }
 
 @media (max-width: 480px) {
     .certifications h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         margin-bottom: 15px;
     }
 
@@ -711,11 +739,18 @@ h2::after {
     }
 
     .certification-card {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
         padding: 10px;
+        height: 250px;
+        text-align: center; /* Center the text within the card */
     }
 
     .certification-card h3 {
         font-size: 1.2rem;
+        margin-bottom: 5px;
     }
 
     .certification-card p {
@@ -723,10 +758,9 @@ h2::after {
     }
 
     .certificate-image {
-        bottom: -50%; /* Adjust image positioning for very small screens */
+        bottom: -100%; /* Adjust positioning for very small screens */
     }
 }
-
 
 /* Contact Section */
 .contact {
