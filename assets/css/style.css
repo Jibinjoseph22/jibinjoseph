@@ -507,34 +507,40 @@ h2::after {
     align-items: center;
     overflow: hidden; /* Hides overflow to create seamless scrolling effect */
     position: relative;
+    width: 100%;
 }
 
 /* Projects Grid with Horizontal Scroll Animation */
 .projects-grid {
     display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping to the next line */
     gap: 60px; /* Space between project cards */
-    animation: scroll-left 30s linear infinite; /* Smooth infinite scroll */
+    width: calc(100% * 2); /* Double the width of the container for seamless scrolling */
+    animation: scroll-left 60s linear infinite; /* Smooth infinite scroll */
 }
 
+/* Keyframes for Scrolling Animation */
 @keyframes scroll-left {
     0% {
         transform: translateX(0); /* Start from the right */
     }
     100% {
-        transform: translateX(-100%); /* End at the left, then loop */
+        transform: translateX(-50%); /* Scrolls through half of the content width */
     }
 }
+
 /* Pause scrolling animation on hover */
 .projects-grid:hover {
     animation-play-state: paused; /* Pauses the animation */
 }
+
 /* Project Card */
 .project-card {
-    flex: 0 0 auto; /* Prevents shrinking */
-    width: 350px;
+    flex: 0 0 300px; /* Fixed width for each card */
     height: 300px;
     perspective: 1000px;
     overflow: hidden;
+    display: inline-block; /* Keeps cards aligned horizontally */
 }
 
 /* Card Inner Flip Animation */
@@ -563,6 +569,7 @@ h2::after {
     overflow: hidden;
     box-sizing: border-box;
 }
+
 .card-back {
     display: flex;
     flex-direction: column;
@@ -598,6 +605,7 @@ h2::after {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     color: #333;
 }
+
 .project-image {
     flex-shrink: 0; /* Prevents the image container from shrinking */
     max-height: 180px; /* Adjusted to prevent overflow */
@@ -607,6 +615,7 @@ h2::after {
     justify-content: center;
     margin-top: 10px;
 }
+
 .project-image img {
     max-width: 100%; /* Ensures image doesn't overflow horizontally */
     max-height: 100%; /* Prevents the image from exceeding its container */
@@ -624,6 +633,54 @@ h2::after {
     flex-grow: 1;
 }
 
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    /* Keyframes for Scrolling Animation */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0); /* Start from the right */
+    }
+    100% {
+        transform: translateX(-90%); /* Scrolls through half of the content width */
+    }
+}
+    .projects-grid {
+        gap: 30px;
+        width: calc(100% * 3); /* Triple the width for a seamless scroll on smaller screens */
+        animation: scroll-left 40s linear infinite; /* Adjust speed for smaller screens */
+    }
+
+    .project-card {
+        flex: 0 0 300px; /* Adjust width for smaller screens */
+        height: 300px; /* Adjust height for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    @keyframes scroll-left {
+        0% {
+            transform: translateX(0); /* Start from the right */
+        }
+        100% {
+            transform: translateX(-130%); /* Scrolls through half of the content width */
+        }
+    }
+    .projects-grid {
+        gap: 20px; /* Adjust space between cards */
+        width: calc(100% * 4); /* Quadruple the width for very small screens */
+        animation: scroll-left 40s linear infinite; /* Adjust speed for very small screens */
+    }
+
+    .project-card {
+        flex: 0 0 300px; /* Adjust width for very small screens */
+        height: 300px;
+         /* Adjust height for very small screens */
+    }
+
+    .card-inner {
+        transition: transform 0.4s; /* Faster flip animation on smaller screens */
+    }
+}
 
 
 
@@ -663,6 +720,34 @@ h2::after {
     transition: transform 0.3s, box-shadow 0.3s;
     align-items: center; /* Center content vertically within the card */
     justify-content: center;
+    cursor: pointer; 
+}
+
+/* Overlay Effect */
+.certification-card::after {
+    content: 'Click to View'; /* Text displayed on hover */
+    position: relative;
+    bottom: -58px;
+    background: rgba(247, 244, 244, 0.388); /* Semi-transparent background */
+    color: #de480d; /* White text color */
+    display: flex;
+    
+    justify-content: center;
+    font-size: 1.2rem;
+    opacity: 1; /* Always visible */
+    transition: opacity 0.3s;
+    pointer-events: none; /* Allows clicks to pass through to the card */
+    border-radius: 8px;
+}
+
+/* Hover Effect */
+.certification-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.certification-card:hover::after {
+    opacity: 0; /* Hide the overlay on hover */
 }
 
 .certification-card h3 {
@@ -686,12 +771,7 @@ h2::after {
     transition: bottom 0.3s;
 }
 
-/* Hover Effect */
-.certification-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
+/* Hover Effect for Image */
 .certification-card:hover .certificate-image {
     bottom: 0; /* Move image into view */
 }
@@ -710,7 +790,7 @@ h2::after {
 
     .certification-card {
         padding: 15px;
-        height: 150px;
+        height: 200px;
     }
 
     .certification-card h3 {
