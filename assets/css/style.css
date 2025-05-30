@@ -494,57 +494,48 @@ h2::after {
     transition: width 1s;
 }
 
-
-/* Projects Section Styling */
-.projects-section {
-    padding: 50px 0;
-    background: #f4f9ff;
-    overflow: hidden; /* Prevents content overflow during animation */
-}
-
-/* Scrolling Container */
-.scrolling-container {
-    display: flex;
-    align-items: center;
-    overflow: hidden; /* Hides overflow to create seamless scrolling effect */
-    position: relative;
+/* Scrollable Container */
+.projects-scroll-container {
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    overflow-y: hidden;
     width: 100%;
+    position: relative;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    cursor: grab; /* Show grab cursor */
 }
 
-/* Projects Grid with Horizontal Scroll Animation */
+/* Add grabbing cursor while dragging */
+.projects-scroll-container.active {
+    cursor: grabbing;
+}
+
+/* Wrapper no animation */
+.projects-scroll-wrapper {
+    display: inline-block;
+    /* Removed animation */
+}
+
+/* Projects Grid */
 .projects-grid {
     display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping to the next line */
-    gap: 60px; /* Space between project cards */
-    width: calc(100% * 2); /* Double the width of the container for seamless scrolling */
-    animation: scroll-left 60s linear infinite; /* Smooth infinite scroll */
-}
-
-/* Keyframes for Scrolling Animation */
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0); /* Start from the right */
-    }
-    100% {
-        transform: translateX(-50%); /* Scrolls through half of the content width */
-    }
-}
-
-/* Pause scrolling animation on hover */
-.projects-grid:hover {
-    animation-play-state: paused; /* Pauses the animation */
+    flex-wrap: nowrap;
+    gap: 60px;
+    width: max-content;
+    align-items: flex-start;
 }
 
 /* Project Card */
 .project-card {
-    flex: 0 0 300px; /* Fixed width for each card */
+    flex: 0 0 300px;
     height: 300px;
     perspective: 1000px;
     overflow: hidden;
-    display: inline-block; /* Keeps cards aligned horizontally */
 }
 
-/* Card Inner Flip Animation */
+/* Card Flip */
 .card-inner {
     position: relative;
     width: 100%;
@@ -557,9 +548,8 @@ h2::after {
     transform: rotateY(180deg);
 }
 
-/* Front and Back of the Card */
-.card-front,
-.card-back {
+/* Card Front & Back */
+.card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -571,45 +561,31 @@ h2::after {
     box-sizing: border-box;
 }
 
-.card-back {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px; /* Optional: Add padding if needed */
-}
-
-/* Link Style */
-.card-back a {
-    color: #ff6f61; /* Orange color */
-    text-decoration: none;
-    font-size: 1.2rem; /* Adjust font size as needed */
-    margin-top: 15px; /* Space above the link */
-}
-
-.card-back a:hover {
-    color: #e5574f; /* Change color on hover */
-}
-
-/* Card Front Styling */
 .card-front {
     background: #ffffff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Card Back Styling */
 .card-back {
     background: #f4f9ff;
     transform: rotateY(180deg);
-    padding: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     color: #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    overflow-y: auto;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
+/* Image Container */
 .project-image {
-    flex-shrink: 0; /* Prevents the image container from shrinking */
-    max-height: 180px; /* Adjusted to prevent overflow */
+    flex-shrink: 0;
+    max-height: 180px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -618,70 +594,51 @@ h2::after {
 }
 
 .project-image img {
-    max-width: 100%; /* Ensures image doesn't overflow horizontally */
-    max-height: 100%; /* Prevents the image from exceeding its container */
-    object-fit: contain; /* Maintains the aspect ratio */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     border-bottom: 3px solid #e0e0e0;
 }
 
-.project-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers content horizontally */
-    justify-content: center; /* Centers content vertically */
-    text-align: center; /* Centers the text within the container */
-    padding: 10px;
-    flex-grow: 1;
+/* Project Details */
+.project-details h3,
+.project-details p {
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: unset;
+    word-wrap: break-word;
+    text-align: center;
 }
 
-/* Media Queries for Mobile Devices */
-@media (max-width: 768px) {
-    /* Keyframes for Scrolling Animation */
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0); /* Start from the right */
-    }
-    100% {
-        transform: translateX(-90%); /* Scrolls through half of the content width */
-    }
+/* Card Back Link */
+.card-back a {
+    color: #ff6f61;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-top: 15px;
 }
+
+.card-back a:hover {
+    color: #e5574f;
+}
+
+/* Responsive adjustments without animation */
+@media (max-width: 768px) {
     .projects-grid {
         gap: 30px;
-        width: calc(100% * 3); /* Triple the width for a seamless scroll on smaller screens */
-        animation: scroll-left 40s linear infinite; /* Adjust speed for smaller screens */
-    }
-
-    .project-card {
-        flex: 0 0 300px; /* Adjust width for smaller screens */
-        height: 300px; /* Adjust height for smaller screens */
     }
 }
 
 @media (max-width: 480px) {
-    @keyframes scroll-left {
-        0% {
-            transform: translateX(0); /* Start from the right */
-        }
-        100% {
-            transform: translateX(-130%); /* Scrolls through half of the content width */
-        }
-    }
     .projects-grid {
-        gap: 20px; /* Adjust space between cards */
-        width: calc(100% * 4); /* Quadruple the width for very small screens */
-        animation: scroll-left 40s linear infinite; /* Adjust speed for very small screens */
-    }
-
-    .project-card {
-        flex: 0 0 300px; /* Adjust width for very small screens */
-        height: 300px;
-         /* Adjust height for very small screens */
+        gap: 20px;
     }
 
     .card-inner {
-        transition: transform 0.4s; /* Faster flip animation on smaller screens */
+        transition: transform 0.4s;
     }
 }
+
 
 
 
